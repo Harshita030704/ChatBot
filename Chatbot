@@ -1,0 +1,26 @@
+
+import openai
+
+# Set up your OpenAI API key
+openai.api_key = "Your API Key"
+
+# Function to generate chatbot response
+def generate_response(user_input):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are a helpful chatbot."},
+            {"role": "user", "content": user_input}
+        ]
+    )
+    return response['choices'][0]['message']['content']
+
+# Main chat loop
+print("Hello! I’m your chatbot. Type 'exit' to end the chat.")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == "exit":
+        print("Chatbot: Goodbye!")
+        break
+    response = generate_response(user_input)
+    print("Chatbot:", response)
