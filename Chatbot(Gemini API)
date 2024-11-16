@@ -1,0 +1,31 @@
+import google.generativeai as genai
+
+genai.configure(api_key="Your API Key")
+
+# Function to interact with the Gemini model
+def chat_with_gemini(user_input, model_name="gemini-1.5-pro"):
+    try:
+        # Generate a response using the Gemini API
+        response = genai.generate_content(
+            model=model_name,
+            prompt=user_input,
+            max_output_tokens=500
+        )
+        return response.text
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+# Simple chatbot loop
+def start_chatbot():
+    print("Gemini Chatbot: Hello! Type 'exit' to end the chat.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "exit":
+            print("Gemini Chatbot: Goodbye!")
+            break
+        response = chat_with_gemini(user_input)
+        print(f"Gemini Chatbot: {response}")
+
+# Start the chatbot
+if __name__ == "__main__":
+    start_chatbot()
